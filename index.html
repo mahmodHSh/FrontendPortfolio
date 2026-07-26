@@ -300,33 +300,85 @@ h4 {
 .navbar__logo {
   display: flex;
   align-items: center;
-  transition: transform var(--transition-fast);
-}
-
-.navbar__logo:hover {
-  transform: scale(1.05);
 }
 
 .logo-mark {
-  width: 40px;
-  height: 40px;
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-text);
 }
 
-.logo-mark__gradient-start {
-  stop-color: var(--color-primary);
-}
-
-.logo-mark__gradient-end {
-  stop-color: var(--color-secondary);
-}
-
-.logo-mark__strokes {
-  stroke: var(--color-on-primary);
-}
-
-.navbar__logo span {
+.logo-mark__bracket {
   color: var(--color-primary);
+}
+
+.logo-mark__letter {
+  color: var(--color-text);
+  transition: color var(--transition-fast);
+}
+
+.navbar__logo:hover .logo-mark__letter,
+.navbar__logo:focus-visible .logo-mark__letter {
+  color: var(--color-primary);
+}
+
+.logo-mark__middle {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  color: var(--color-primary);
+  transition: max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+}
+
+.navbar__logo:hover .logo-mark__middle,
+.navbar__logo:focus-visible .logo-mark__middle {
+  max-width: 150px;
+  opacity: 1;
+}
+
+.logo-mark.is-open .logo-mark__letter {
+  color: var(--color-primary);
+}
+
+.logo-mark.is-open .logo-mark__middle {
+  max-width: 150px;
+  opacity: 1;
+}
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg);
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.splash-screen.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.logo-mark--splash {
+  font-size: clamp(2rem, 7vw, 3.25rem);
+}
+
+.logo-mark--splash.is-open .logo-mark__middle {
+  max-width: 90vw;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-screen {
+    transition: none;
+  }
 }
 
 .navbar__links {
@@ -988,8 +1040,15 @@ h4 {
   display: inline-flex;
 }
 
-.footer__logo span {
+.footer__logo:hover .logo-mark__letter,
+.footer__logo:focus-visible .logo-mark__letter {
   color: var(--color-primary);
+}
+
+.footer__logo:hover .logo-mark__middle,
+.footer__logo:focus-visible .logo-mark__middle {
+  max-width: 150px;
+  opacity: 1;
 }
 
 .footer__nav {
@@ -1194,24 +1253,21 @@ h4 {
 </head>
 <body>
 
+  <div id="splashScreen" class="splash-screen" aria-hidden="true">
+    <span class="logo-mark logo-mark--splash" id="splashLogo">
+      <span class="logo-mark__bracket">&lt;</span><span class="logo-mark__letter">M</span><span class="logo-mark__middle">HMOD HAZE</span><span class="logo-mark__letter">M</span><span class="logo-mark__bracket">/&gt;</span>
+    </span>
+  </div>
+
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- ============================= HEADER / NAV ============================= -->
   <header class="site-header">
     <div class="container navbar">
       <a href="#top" class="navbar__logo" aria-label="Mhmod Hazem — back to top">
-        <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
-          <defs>
-            <linearGradient id="logoGradientHeader" x1="0" y1="0" x2="40" y2="40">
-              <stop offset="0%" class="logo-mark__gradient-start"/>
-              <stop offset="100%" class="logo-mark__gradient-end"/>
-            </linearGradient>
-          </defs>
-          <rect width="40" height="40" rx="11" fill="url(#logoGradientHeader)"/>
-          <path d="M15 13L9 20L15 27" class="logo-mark__strokes" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M25 13L31 20L25 27" class="logo-mark__strokes" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M16 14V26M24 14V26M16 14L20 20L24 14M16 20H24" class="logo-mark__strokes" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <span class="logo-mark">
+          <span class="logo-mark__bracket">&lt;</span><span class="logo-mark__letter">M</span><span class="logo-mark__middle">HMOD HAZE</span><span class="logo-mark__letter">M</span><span class="logo-mark__bracket">/&gt;</span>
+        </span>
       </a>
 
       <nav class="navbar__links" aria-label="Primary navigation">
@@ -1688,18 +1744,9 @@ h4 {
   <footer class="site-footer">
     <div class="container footer__grid">
       <a href="#top" class="footer__logo" aria-label="Mhmod Hazem — back to top">
-        <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
-          <defs>
-            <linearGradient id="logoGradientFooter" x1="0" y1="0" x2="40" y2="40">
-              <stop offset="0%" class="logo-mark__gradient-start"/>
-              <stop offset="100%" class="logo-mark__gradient-end"/>
-            </linearGradient>
-          </defs>
-          <rect width="40" height="40" rx="11" fill="url(#logoGradientFooter)"/>
-          <path d="M15 13L9 20L15 27" class="logo-mark__strokes" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M25 13L31 20L25 27" class="logo-mark__strokes" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M16 14V26M24 14V26M16 14L20 20L24 14M16 20H24" class="logo-mark__strokes" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <span class="logo-mark">
+          <span class="logo-mark__bracket">&lt;</span><span class="logo-mark__letter">M</span><span class="logo-mark__middle">HMOD HAZE</span><span class="logo-mark__letter">M</span><span class="logo-mark__bracket">/&gt;</span>
+        </span>
       </a>
 
       <nav class="footer__nav" aria-label="Footer navigation">
@@ -1970,7 +2017,36 @@ function setupStarfield() {
   start();
 }
 
+function setupSplashScreen() {
+  const splash = document.getElementById('splashScreen');
+  const splashLogo = document.getElementById('splashLogo');
+  if (!splash || !splashLogo) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    splash.classList.add('is-hidden');
+    return;
+  }
+
+  document.body.style.overflow = 'hidden';
+
+  setTimeout(() => {
+    splashLogo.classList.add('is-open');
+  }, 600);
+
+  setTimeout(() => {
+    splash.classList.add('is-hidden');
+    document.body.style.overflow = '';
+  }, 3000);
+
+  splash.addEventListener('transitionend', () => {
+    splash.remove();
+  });
+}
+
 function init() {
+  setupSplashScreen();
   setupThemeToggle();
   setupStarfield();
   setupScrollReveal();
